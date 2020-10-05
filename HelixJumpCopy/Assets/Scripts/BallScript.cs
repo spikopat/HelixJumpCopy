@@ -10,6 +10,9 @@ public class BallScript : MonoBehaviour {
     GameObject splashObject;
 
     [SerializeField]
+    Transform splashParent;
+
+    [SerializeField]
     float addForceY;
 
     private void Start() {
@@ -20,7 +23,7 @@ public class BallScript : MonoBehaviour {
         if (collision.gameObject.tag == "RingPiece") {
 
             Vector3 contactPoint = collision.contacts[0].point;
-            Instantiate(splashObject, new Vector3(contactPoint.x, contactPoint.y + 0.1f, contactPoint.z), Quaternion.Euler(90, 0, 0));
+            Instantiate(splashObject, new Vector3(contactPoint.x, contactPoint.y + 0.1f, contactPoint.z), Quaternion.Euler(90, 0, 0), splashParent);
 
             rb.AddForce(new Vector3(0, addForceY, 0), ForceMode.Force);
         }
