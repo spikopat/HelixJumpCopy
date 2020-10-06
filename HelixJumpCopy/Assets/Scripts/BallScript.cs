@@ -19,6 +19,7 @@ public class BallScript : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
     }
 
+    //Dokunduğu noktaya SplashEffect spawnlayabilmek için bu kontrolü burada yapmam gerekti.
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "RingPiece") {
 
@@ -28,4 +29,5 @@ public class BallScript : MonoBehaviour {
             rb.AddForce(new Vector3(0, addForceY, 0), ForceMode.Force);
         }
     }
+
 }

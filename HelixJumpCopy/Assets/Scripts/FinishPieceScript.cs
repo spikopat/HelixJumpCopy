@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapPieceScript : MonoBehaviour {
+public class FinishPieceScript : MonoBehaviour {
+
     private void OnCollisionEnter(Collision collision) {
         if (collision.collider == null) {
             return;
         }
         if (collision.gameObject.tag == "Ball") {
-            Debug.Log("Game Over.");
+            Debug.Log("Game Finished.");
         }
     }
 }
