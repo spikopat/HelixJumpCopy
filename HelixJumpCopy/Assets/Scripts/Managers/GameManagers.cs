@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(GameManager))]
+[RequireComponent(typeof(SoundManager))]
 public class GameManagers : MonoBehaviour {
 
     private static GameManager _gameManager;
@@ -10,8 +11,14 @@ public class GameManagers : MonoBehaviour {
         get { return _gameManager; }
     }
 
+    private static SoundManager _soundManager;
+    public static SoundManager Sound {
+        get { return _soundManager; }
+    }
+
     private void Awake() {
         _gameManager = GetComponent<GameManager>();
+        _soundManager = GetComponent<SoundManager>();
     }
 
 }
