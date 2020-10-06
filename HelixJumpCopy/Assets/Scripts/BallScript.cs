@@ -18,20 +18,43 @@ public class BallScript : MonoBehaviour {
     [SerializeField]
     ParticleSystem splashParticleSystem;
 
+    bool isForcing;
+
     private void Start() {
         rb = GetComponent<Rigidbody>();
     }
 
-    //Dokunduğu noktaya SplashEffect spawnlayabilmek için bu kontrolü burada yapmam gerekti.
     private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "RingPiece") {
 
-            Vector3 contactPoint = collision.contacts[0].point;
-            Instantiate(splashObject, new Vector3(contactPoint.x, contactPoint.y + 0.1f, contactPoint.z), Quaternion.Euler(90, 0, 0), splashParent);
+        if (!isForcing && collision.gameObject.tag == "RingPiece") {
 
-            rb.AddForce(new Vector3(0, addForceY, 0), ForceMode.Force);
-            GameManagers.Sound.InGameAudioSource.PlayOneShot(GameManagers.Sound.splashSound, 1);
-            splashParticleSystem.Play();
+            SpawnSplashEffect(collision.contacts[0].point);
+            SetForceToBall();
+
+        }
+    }
+
+    //Particle'ı aktif eder, splash sprite'ı spawnlar ve splash sesini çalar.
+    void SpawnSplashEffect(Vector3 spawnPos) {
+        splashParticleSystem.Play();
+        Instantiate(splashObject, new Vector3(spawnPos.x, spawnPos.y + 0.1f, spawnPos.z), Quaternion.Euler(90, 0, 0), splashParent);
+        GameManagers.Sound.InGameAudioSource.PlayOneShot(GameManagers.Sound.splashSound, 1);
+    }
+
+    void SetForceToBall() {
+        rb.AddForce(new Vector3(0, addForceY, 0), ForceMode.Force);
+        isForcing = true;
+    }
+
+    //Farklı zeminlerin topa aynı anda force uygulayamaması için spagetti bir çözüm.
+    float temp = 0;
+    private void Update() {
+        if (isForcing) {
+            temp += Time.deltaTime;
+            if (temp >= 0.5f) {
+                isForcing = false;
+                temp = 0;
+            }
         }
     }
 
