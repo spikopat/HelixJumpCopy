@@ -8,7 +8,8 @@ public class TrapPieceScript : MonoBehaviour {
             return;
         }
         if (collision.gameObject.tag == "Ball") {
-            Debug.Log("Game Over.");
+            collision.gameObject.GetComponent<TrailRenderer>().enabled = false;
+            GameManagers.Game.LostState();
         }
     }
 }

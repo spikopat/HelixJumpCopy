@@ -9,7 +9,8 @@ public class FinishPieceScript : MonoBehaviour {
             return;
         }
         if (collision.gameObject.tag == "Ball") {
-            Debug.Log("Game Finished.");
+            collision.gameObject.GetComponent<TrailRenderer>().enabled = false;
+            GameManagers.Game.WinState();
         }
     }
 }
