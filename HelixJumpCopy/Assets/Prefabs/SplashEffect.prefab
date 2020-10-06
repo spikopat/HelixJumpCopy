@@ -94,5 +94,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7247f592e803c40a205dc586ebe188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeAfterDestroy: 2
-  splashParticleEffect: {fileID: 0}
+  timeAfterDestroy: 1
